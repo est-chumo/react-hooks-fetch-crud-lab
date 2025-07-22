@@ -21,6 +21,23 @@ function QuestionForm(props) {
     event.preventDefault();
     console.log(formData);
   }
+  function handleSubmit(e) {
+  e.preventDefault();
+  const newQuestion = {
+    prompt,
+    answers,
+    correctIndex: parseInt(correctIndex),
+  };
+
+  fetch("http://localhost:4000/questions", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(newQuestion),
+  })
+    .then((res) => res.json())
+    .then((data) => onAddQuestion(data)); // use a prop function to update parent state
+}
+
 
   return (
     <section>
